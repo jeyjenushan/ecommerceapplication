@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import UserLayout from "./components/Layout/UserLayout";
 import Home from "./pages/Home";
@@ -6,6 +5,18 @@ import { Toaster } from "sonner";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+import CollectionPage from "./pages/CollectionPage";
+import ProductDetails from "./components/Products/ProductDetails";
+import Checkout from "./components/Cart/Checkout";
+import OrderConfirm from "./pages/OrderConfirm";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
+import MyOrders from "./pages/MyOrders";
+import AdminLayout from "./components/Admin/AdminLayout";
+import AdminHomePage from "./pages/Admin/AdminHomePage";
+import UserManagement from "./pages/Admin/UserManagement";
+import ProductManagment from "./pages/Admin/ProductManagment";
+import EditProductsPage from "./pages/Admin/EditProductsPage";
+import OrderManagement from "./pages/Admin/OrderManagement";
 
 const App = () => {
   return (
@@ -18,10 +29,24 @@ const App = () => {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="collections/:collection" element={<CollectionPage />} />
+
+          <Route path="product/:id" element={<ProductDetails />} />
+
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="order-confirmation" element={<OrderConfirm />} />
+          <Route path="order/:id" element={<OrderDetailsPage />} />
+          <Route path="my-orders" element={<MyOrders />} />
         </Route>
 
         {/*Admin Routes */}
-        <Route></Route>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminHomePage />} />
+          <Route path="users" element={<UserManagement />} />
+          <Route path="products" element={<ProductManagment />} />
+          <Route path="products/:id/edit" element={<EditProductsPage />} />
+          <Route path="orders" element={<OrderManagement />} />
+        </Route>
       </Routes>
     </div>
   );
