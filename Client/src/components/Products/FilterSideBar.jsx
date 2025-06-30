@@ -145,12 +145,18 @@ const FilterSideBar = () => {
             <input
               type="radio"
               value={gender}
+              id={`gender-${gender}`}
               onChange={handleFilterChange}
               name="gender"
               checked={filters.gender == gender}
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
             />
-            <span className="text-gray-700">{gender}</span>
+            <label
+              htmlFor={`gender-${gender}`}
+              className="text-gray-700 cursor-pointer"
+            >
+              {gender}
+            </label>
           </div>
         ))}
       </div>
