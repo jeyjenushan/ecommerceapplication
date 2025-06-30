@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import login from "../assets/login.webp";
+import { registerUser } from "../redux/slices/authSlice";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmut = (e) => {
     e.preventDefault();
-    console.log("registered",{
-        email,name,password
-    })
+
+
+    dispatch(registerUser({ name, email, password }));
   };
 
   return (
@@ -76,7 +79,7 @@ const Register = () => {
             className="w-full bg-black text-white p-2 rounded-lg font-semibold hover:bg-gray-800 transition"
             type="submit"
           >
-            Sign Uo
+            Sign Up
           </button>
           <p className="mt-6 text-center text-sm">
             Don't have an account?

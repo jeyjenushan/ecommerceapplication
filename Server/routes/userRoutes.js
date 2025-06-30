@@ -84,7 +84,7 @@ router.post("/login",async(req,res)=>{
 
 //UserProfile get
 router.get("/profile",protectRoute,async(req,res)=>{
-    console.log(req.user)
+res.json(req.user)
 
 
 })

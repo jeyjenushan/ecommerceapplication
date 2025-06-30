@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import login from "../assets/login.webp";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/slices/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+
   const handleSubmut = (e) => {
     e.preventDefault();
-    console.log("login", {
-      email,
-      password,
-    });
+    dispatch(loginUser({ email, password }));
+    
   };
 
   return (
@@ -40,7 +42,7 @@ const Login = () => {
             <input
               type="email"
               value={email}
-              onChange={setEmail}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-2 border rounded"
               placeholder="Enter your email address"
             />
@@ -53,7 +55,7 @@ const Login = () => {
             <input
               type="password"
               value={password}
-              onChange={setPassword}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full p-2 border rounded"
               placeholder="Enter your password"
             />
