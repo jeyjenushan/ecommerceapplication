@@ -8,10 +8,16 @@ const { protectRoute } = require("../middleware/authMiddleware")
 
 //Helper function to get a cart by userId or guest Id
 const getCart=async(userId,guestId)=>{
-    if(userId){
-        return await Cart.findOne({user:userId})
-    }else if(guestId){
+    console.log(userId,guestId)
+ if(guestId){
+    guestId=guestId.trim()
+          console.log("guest",await Cart.findOne({guestId}))
         return await Cart.findOne({guestId})
+    }
+    else if(userId){
+        userId=userId.trim()
+        console.log("user",await Cart.findOne({user:userId}))
+        return await Cart.findOne({user:userId})
     }
     return null;
 }
@@ -83,10 +89,11 @@ router.post("/",async(req,res)=>{
 
 
 //update the product quantity
-router.put("/",protectRoute,async(req,res)=>{
+router.put("/",async(req,res)=>{
     const {productId,quantity,size,color,guestId,userId}=req.body;
     try {
         let cart=await getCart(userId,guestId)
+            console.log("cart",cart)
         if(!cart)return res.status(404).json({message:"Cart not found"});
          
         const productIndex=cart.products.findIndex((p)=>p.productId.toString()==productId && p.size==size && p.color==color)
@@ -119,11 +126,12 @@ router.put("/",protectRoute,async(req,res)=>{
 })
 
 //Delete the product from cart
-router.delete("/",protectRoute,async(req,res)=>{
+router.delete("/",async(req,res)=>{
 const {productId,size,color,guestId,userId}=req.body;
 try {
     
     let cart=await getCart(userId,guestId)
+
     if(!cart)return res.status(404).json({message:"Cart not found"});
     const productIndex=cart.products.findIndex((p)=>p.productId.toString()==productId && p.size==size && p.color==color)
 
@@ -151,7 +159,7 @@ try {
 //@desc GET logged-in user's or guest user's cart
 //@access Public
 
-router.get("/",protectRoute,async(req,res)=>{
+router.get("/",async(req,res)=>{
 
     const {guestId,userId}=req.query;
     try {
