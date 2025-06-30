@@ -3,6 +3,7 @@ const dotenv=require("dotenv")
 const ProductModel=require("./models/Product")
 const UserModel=require("./models/User")
 const products=require("./data/products")
+const CartModel=require("./models/Cart")
 const { protectRoute } = require("./middleware/authMiddleware")
 
 dotenv.config()
@@ -14,6 +15,7 @@ const seekData=async()=>{
     try {
         await ProductModel.deleteMany();
         await UserModel.deleteMany()
+        await CartModel.deleteMany()
 
 
         const createUser=await UserModel.create({

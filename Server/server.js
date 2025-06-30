@@ -4,6 +4,7 @@ const dotenv=require("dotenv")
 const connectDB=require("./config/db")
 const userRoutes=require("./routes/userRoutes")
 const productRoutes=require("./routes/productRoutes")
+const cartRoutes=require("./routes/cartRoutes")
 
 const app=express()
 app.use(express.json())
@@ -18,7 +19,7 @@ connectDB()
 //API Routes Here
 app.use("/api/users",userRoutes)
 app.use("/api/products",productRoutes)
-
+app.use("/api/cart",cartRoutes)
 app.listen(PORT,(req,res)=>{
     console.log(`The server is running port number on ${PORT}`)
 })
